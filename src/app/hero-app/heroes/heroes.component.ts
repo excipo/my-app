@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Hero } from '../../core/hero/hero';
 import { HeroService } from '../../core/hero/hero.service';
 
@@ -9,29 +10,11 @@ import { HeroService } from '../../core/hero/hero.service';
 })
 export class HeroesComponent implements OnInit {
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService,
+    private router: Router) { }
 
-  heroes: Hero[] = [];
-
-  columns = [
-    {
-      columnDef: 'id',
-      header: 'ID',
-      cell: (hero: Hero) => `${hero.id}`,
-    },
-    {
-      columnDef: 'name',
-      header: 'Meno',
-      cell: (hero: Hero) => `${hero.name}`,
-    },
-    {
-      columnDef: 'lastName',
-      header: 'priezvisko',
-      cell: (hero: Hero) => `${hero.lastName}`,
-    },
-  ];
-  
-  displayedColumns = this.columns.map(c => c.columnDef);
+  heroes: Hero[] = [];  
+  displayedColumns: string[] = ['id', 'name', 'lastName', 'delete'];
 
   ngOnInit(): void {
     this.getHeroes();
@@ -42,7 +25,28 @@ export class HeroesComponent implements OnInit {
       .subscribe(heroes => this.heroes = heroes);
   }
 
-  addHero() {
-    this.heroService.addHero();
+  add(name: string,lastName: string): void {
+    name = name.trim();
+    lastName = lastName.trim();
+    if (!name) { return; }
+    if (!lastName) { return; }
+    this.heroService.addHero({ name, lastName } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
   }
+  
+  delete(id: number): void {
+    this.heroes = this.heroes.filter(h => h.id !== id);
+    this.heroService.deleteHero(id).subscribe();
+  }
+  
+  rowClicked(column: any, cell: Hero) {
+    if(column.columnDef === 'delete') {
+      this.delete(cell.id);
+    } else {
+      this.router.navigateByUrl(`/detail/${cell.id}`);
+    }
+  }
+
 }
