@@ -1,13 +1,15 @@
-<div *ngIf="hero">
+<div class="prv" *ngIf="hero">
 
-    <h2>{{hero.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{hero.id}}</div>
-    <div>
-      <label for="hero-name">Hero name: </label>
-      <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
-    </div>
-    <button type="button" (click)="goBack()">go back</button>
-    <button type="button" (click)="save()">save</button>
+  <h2>{{hero.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{hero.id}}</div>
+  <div>
+    <label for="hero-name">Hero name: </label>
+    <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
   </div>
-
-  
+  <div>
+    <label for="hero-name">Hero name: </label>
+    <input id="hero-name" [(ngModel)]="hero.lastName" placeholder="last name">
+  </div>
+  <mat-icon (click)="goBack()" matTooltip="go back" matTooltipPosition="before">home</mat-icon>
+  <mat-icon (click)="save()" matTooltip="save changes" matTooltipPosition="after">save</mat-icon>
+</div>

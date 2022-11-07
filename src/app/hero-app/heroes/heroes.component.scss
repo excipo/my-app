@@ -4,10 +4,12 @@
   padding: 0;
   width: 15em;
 }
-h2{
+
+h2 {
   display: flex;
   justify-content: center;
 }
+
 .heroes li {
   display: flex;
 }
@@ -72,6 +74,10 @@ table {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 }
 
 tr.hoverrow:hover {
@@ -87,6 +93,10 @@ form {
   mat-form-field {
     margin-right: 10px;
   }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 }
 
 div {
@@ -94,4 +104,8 @@ div {
   margin-left: auto;
   margin-right: auto;
   justify-content: space-between;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 }
